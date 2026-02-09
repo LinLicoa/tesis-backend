@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperación de Contraseña</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1b2e; /* Dark background matching NeuroSalud */
+            color: #e2e8f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .card {
+            background-color: #1e293b; /* Slightly lighter dark for card */
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #334155;
+        }
+        .logo {
+            margin-bottom: 24px;
+        }
+        .logo-icon {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #f8fafc;
+            display: block;
+        }
+        h1 {
+            color: #f8fafc;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+        p {
+            color: #94a3b8;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+        .otp-container {
+            background-color: #0f172a;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            border: 1px solid #334155;
+        }
+        .otp-code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 36px;
+            font-weight: 700;
+            color: #60a5fa; /* Light blue accent */
+            letter-spacing: 4px;
+        }
+        .footer {
+            margin-top: 32px;
+            font-size: 14px;
+            color: #64748b;
+        }
+        .divider {
+            height: 1px;
+            background-color: #334155;
+            margin: 32px 0;
+        }
+        .button {
+             display: inline-block;
+             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+             color: white;
+             padding: 12px 24px;
+             border-radius: 8px;
+             text-decoration: none;
+             font-weight: 600;
+             margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="logo">
+                <div class="logo-icon">
+                    <!-- Simple SVG Path representation for valid email HTML -->
+                    <span style="font-size: 24px; color: white;">⚡</span>
+                </div>
+                <span class="logo-text">NeuroSalud</span>
+            </div>
+            
+            <h1>Recuperación de Contraseña</h1>
+            
+            <p>Hemos recibido una solicitud para restablecer la contraseña de tu cuenta. Utiliza el siguiente código de verificación para continuar:</p>
+            
+            <div class="otp-container">
+                <div class="otp-code" th:text="${otp}">123456</div>
+            </div>
+            
+            <p>Este código expira en 15 minutos.</p>
+            <p>Si no has solicitado este cambio, puedes ignorar este correo de forma segura.</p>
+
+            <div class="divider"></div>
+            
+            <div class="footer">
+                <p>&copy; 2026 NeuroSalud. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
