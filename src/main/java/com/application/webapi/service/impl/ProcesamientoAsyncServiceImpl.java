@@ -105,6 +105,10 @@ public class ProcesamientoAsyncServiceImpl implements ProcesamientoAsyncService 
                     BigDecimal iVal = BigDecimal.valueOf(detalle.getI());
                     BigDecimal fVal = BigDecimal.valueOf(detalle.getF());
 
+                    BigDecimal tBrutoVal = BigDecimal.valueOf(detalle.getTBruto());
+                    BigDecimal iBrutoVal = BigDecimal.valueOf(detalle.getIBruto());
+                    BigDecimal fBrutoVal = BigDecimal.valueOf(detalle.getFBruto());
+
                     // Map Percentage to Probabilities (Mapping Logic: GAD7->Alta, PHQ9->Media,
                     // PSS10->Baja)
                     BigDecimal pctVal = BigDecimal.valueOf(detalle.getPorcentaje());
@@ -113,16 +117,25 @@ public class ProcesamientoAsyncServiceImpl implements ProcesamientoAsyncService 
                         evaluacion.setAnsiedadT(tVal);
                         evaluacion.setAnsiedadI(iVal);
                         evaluacion.setAnsiedadF(fVal);
+                        evaluacion.setAnsiedadTBruto(tBrutoVal);
+                        evaluacion.setAnsiedadIBruto(iBrutoVal);
+                        evaluacion.setAnsiedadFBruto(fBrutoVal);
                         evaluacion.setPorcentajeAnsiedad(pctVal);
                     } else if ("PHQ-9".equalsIgnoreCase(detalle.getPrueba())) {
                         evaluacion.setDepresionT(tVal);
                         evaluacion.setDepresionI(iVal);
                         evaluacion.setDepresionF(fVal);
+                        evaluacion.setDepresionTBruto(tBrutoVal);
+                        evaluacion.setDepresionIBruto(iBrutoVal);
+                        evaluacion.setDepresionFBruto(fBrutoVal);
                         evaluacion.setPorcentajeDepresion(pctVal);
                     } else if ("PSS-10".equalsIgnoreCase(detalle.getPrueba())) {
                         evaluacion.setEstresT(tVal);
                         evaluacion.setEstresI(iVal);
                         evaluacion.setEstresF(fVal);
+                        evaluacion.setEstresTBruto(tBrutoVal);
+                        evaluacion.setEstresIBruto(iBrutoVal);
+                        evaluacion.setEstresFBruto(fBrutoVal);
                         evaluacion.setPorcentajeEstres(pctVal);
                     }
                 }
@@ -194,15 +207,27 @@ public class ProcesamientoAsyncServiceImpl implements ProcesamientoAsyncService 
             tripletasGlobales.put("ansiedad", ResultadosEvaluacionDTO.TripletaGlobalDTO.builder()
                     .T(evaluacion.getAnsiedadT() != null ? evaluacion.getAnsiedadT() : BigDecimal.ZERO)
                     .I(evaluacion.getAnsiedadI() != null ? evaluacion.getAnsiedadI() : BigDecimal.ZERO)
-                    .F(evaluacion.getAnsiedadF() != null ? evaluacion.getAnsiedadF() : BigDecimal.ZERO).build());
+                    .F(evaluacion.getAnsiedadF() != null ? evaluacion.getAnsiedadF() : BigDecimal.ZERO)
+                    .TBruto(evaluacion.getAnsiedadTBruto() != null ? evaluacion.getAnsiedadTBruto() : BigDecimal.ZERO)
+                    .IBruto(evaluacion.getAnsiedadIBruto() != null ? evaluacion.getAnsiedadIBruto() : BigDecimal.ZERO)
+                    .FBruto(evaluacion.getAnsiedadFBruto() != null ? evaluacion.getAnsiedadFBruto() : BigDecimal.ZERO)
+                    .build());
             tripletasGlobales.put("depresion", ResultadosEvaluacionDTO.TripletaGlobalDTO.builder()
                     .T(evaluacion.getDepresionT() != null ? evaluacion.getDepresionT() : BigDecimal.ZERO)
                     .I(evaluacion.getDepresionI() != null ? evaluacion.getDepresionI() : BigDecimal.ZERO)
-                    .F(evaluacion.getDepresionF() != null ? evaluacion.getDepresionF() : BigDecimal.ZERO).build());
+                    .F(evaluacion.getDepresionF() != null ? evaluacion.getDepresionF() : BigDecimal.ZERO)
+                    .TBruto(evaluacion.getDepresionTBruto() != null ? evaluacion.getDepresionTBruto() : BigDecimal.ZERO)
+                    .IBruto(evaluacion.getDepresionIBruto() != null ? evaluacion.getDepresionIBruto() : BigDecimal.ZERO)
+                    .FBruto(evaluacion.getDepresionFBruto() != null ? evaluacion.getDepresionFBruto() : BigDecimal.ZERO)
+                    .build());
             tripletasGlobales.put("estres", ResultadosEvaluacionDTO.TripletaGlobalDTO.builder()
                     .T(evaluacion.getEstresT() != null ? evaluacion.getEstresT() : BigDecimal.ZERO)
                     .I(evaluacion.getEstresI() != null ? evaluacion.getEstresI() : BigDecimal.ZERO)
-                    .F(evaluacion.getEstresF() != null ? evaluacion.getEstresF() : BigDecimal.ZERO).build());
+                    .F(evaluacion.getEstresF() != null ? evaluacion.getEstresF() : BigDecimal.ZERO)
+                    .TBruto(evaluacion.getEstresTBruto() != null ? evaluacion.getEstresTBruto() : BigDecimal.ZERO)
+                    .IBruto(evaluacion.getEstresIBruto() != null ? evaluacion.getEstresIBruto() : BigDecimal.ZERO)
+                    .FBruto(evaluacion.getEstresFBruto() != null ? evaluacion.getEstresFBruto() : BigDecimal.ZERO)
+                    .build());
 
             ResultadosEvaluacionDTO resultados = ResultadosEvaluacionDTO.builder()
                     .evaluacionId(evaluacionId)

@@ -64,6 +64,12 @@ public class ResultadosEvaluacionDTO {
         private BigDecimal I;
         @com.fasterxml.jackson.annotation.JsonProperty("f")
         private BigDecimal F;
+        @com.fasterxml.jackson.annotation.JsonProperty("t_bruto")
+        private BigDecimal TBruto;
+        @com.fasterxml.jackson.annotation.JsonProperty("i_bruto")
+        private BigDecimal IBruto;
+        @com.fasterxml.jackson.annotation.JsonProperty("f_bruto")
+        private BigDecimal FBruto;
     }
 
     @Data

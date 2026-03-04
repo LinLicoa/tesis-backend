@@ -68,6 +68,12 @@ public class Evaluacion {
     private BigDecimal ansiedadI;
     @Column(name = "ansiedad_F", precision = 20, scale = 18)
     private BigDecimal ansiedadF;
+    @Column(name = "ansiedad_T_bruto", precision = 20, scale = 18)
+    private BigDecimal ansiedadTBruto;
+    @Column(name = "ansiedad_I_bruto", precision = 20, scale = 18)
+    private BigDecimal ansiedadIBruto;
+    @Column(name = "ansiedad_F_bruto", precision = 20, scale = 18)
+    private BigDecimal ansiedadFBruto;
 
     // Tripletas globales - Depresión
     @Column(name = "depresion_T", precision = 20, scale = 18)
@@ -76,6 +82,12 @@ public class Evaluacion {
     private BigDecimal depresionI;
     @Column(name = "depresion_F", precision = 20, scale = 18)
     private BigDecimal depresionF;
+    @Column(name = "depresion_T_bruto", precision = 20, scale = 18)
+    private BigDecimal depresionTBruto;
+    @Column(name = "depresion_I_bruto", precision = 20, scale = 18)
+    private BigDecimal depresionIBruto;
+    @Column(name = "depresion_F_bruto", precision = 20, scale = 18)
+    private BigDecimal depresionFBruto;
 
     // Tripletas globales - Estrés
     @Column(name = "estres_T", precision = 20, scale = 18)
@@ -84,6 +96,12 @@ public class Evaluacion {
     private BigDecimal estresI;
     @Column(name = "estres_F", precision = 20, scale = 18)
     private BigDecimal estresF;
+    @Column(name = "estres_T_bruto", precision = 20, scale = 18)
+    private BigDecimal estresTBruto;
+    @Column(name = "estres_I_bruto", precision = 20, scale = 18)
+    private BigDecimal estresIBruto;
+    @Column(name = "estres_F_bruto", precision = 20, scale = 18)
+    private BigDecimal estresFBruto;
 
     // Probabilidades
     @Column(name = "prob_adherencia_alta", precision = 5, scale = 2)

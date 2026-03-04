@@ -38,5 +38,11 @@ public class PythonPredictionResponseItem {
         private double i;
         @JsonProperty("f")
         private double f;
+        @JsonProperty("t_bruto")
+        private double tBruto;
+        @JsonProperty("i_bruto")
+        private double iBruto;
+        @JsonProperty("f_bruto")
+        private double fBruto;
     }
 }
