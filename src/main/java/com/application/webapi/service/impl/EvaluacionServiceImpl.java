@@ -22,15 +22,15 @@ import java.util.stream.Collectors;
 @Slf4j
 public class EvaluacionServiceImpl implements EvaluacionService {
 
-    private final EvaluacionRepository evaluacionRepository;
-    private final PacienteRepository pacienteRepository;
-    private final UsuarioRepository usuarioRepository;
-    private final ConsultaMedicaRepository consultaMedicaRepository;
-    private final RespuestaCuestionarioRepository respuestaRepository;
-    private final EvaluacionRecomendacionRepository evalRecomendacionRepository;
-    private final EvaluacionRecomendacionManualRepository evalRecomendacionManualRepository;
-    private final EvaluacionMapper evaluacionMapper;
-    private final ProcesamientoAsyncService procesamientoAsyncService;
+        private final EvaluacionRepository evaluacionRepository;
+        private final PacienteRepository pacienteRepository;
+        private final UsuarioRepository usuarioRepository;
+        private final ConsultaMedicaRepository consultaMedicaRepository;
+        private final RespuestaCuestionarioRepository respuestaRepository;
+        private final EvaluacionRecomendacionRepository evalRecomendacionRepository;
+        private final EvaluacionRecomendacionManualRepository evalRecomendacionManualRepository;
+        private final EvaluacionMapper evaluacionMapper;
+        private final ProcesamientoAsyncService procesamientoAsyncService;
 
         @Override
         public EvaluacionDTO create(EvaluacionDTO evaluacionDTO) {
@@ -216,16 +216,34 @@ public class EvaluacionServiceImpl implements EvaluacionService {
                                 .T(evaluacion.getAnsiedadT() != null ? evaluacion.getAnsiedadT() : BigDecimal.ZERO)
                                 .I(evaluacion.getAnsiedadI() != null ? evaluacion.getAnsiedadI() : BigDecimal.ZERO)
                                 .F(evaluacion.getAnsiedadF() != null ? evaluacion.getAnsiedadF() : BigDecimal.ZERO)
+                                .TBruto(evaluacion.getAnsiedadTBruto() != null ? evaluacion.getAnsiedadTBruto()
+                                                : BigDecimal.ZERO)
+                                .IBruto(evaluacion.getAnsiedadIBruto() != null ? evaluacion.getAnsiedadIBruto()
+                                                : BigDecimal.ZERO)
+                                .FBruto(evaluacion.getAnsiedadFBruto() != null ? evaluacion.getAnsiedadFBruto()
+                                                : BigDecimal.ZERO)
                                 .build());
                 tripletasGlobales.put("depresion", ResultadosEvaluacionDTO.TripletaGlobalDTO.builder()
                                 .T(evaluacion.getDepresionT() != null ? evaluacion.getDepresionT() : BigDecimal.ZERO)
                                 .I(evaluacion.getDepresionI() != null ? evaluacion.getDepresionI() : BigDecimal.ZERO)
                                 .F(evaluacion.getDepresionF() != null ? evaluacion.getDepresionF() : BigDecimal.ZERO)
+                                .TBruto(evaluacion.getDepresionTBruto() != null ? evaluacion.getDepresionTBruto()
+                                                : BigDecimal.ZERO)
+                                .IBruto(evaluacion.getDepresionIBruto() != null ? evaluacion.getDepresionIBruto()
+                                                : BigDecimal.ZERO)
+                                .FBruto(evaluacion.getDepresionFBruto() != null ? evaluacion.getDepresionFBruto()
+                                                : BigDecimal.ZERO)
                                 .build());
                 tripletasGlobales.put("estres", ResultadosEvaluacionDTO.TripletaGlobalDTO.builder()
                                 .T(evaluacion.getEstresT() != null ? evaluacion.getEstresT() : BigDecimal.ZERO)
                                 .I(evaluacion.getEstresI() != null ? evaluacion.getEstresI() : BigDecimal.ZERO)
                                 .F(evaluacion.getEstresF() != null ? evaluacion.getEstresF() : BigDecimal.ZERO)
+                                .TBruto(evaluacion.getEstresTBruto() != null ? evaluacion.getEstresTBruto()
+                                                : BigDecimal.ZERO)
+                                .IBruto(evaluacion.getEstresIBruto() != null ? evaluacion.getEstresIBruto()
+                                                : BigDecimal.ZERO)
+                                .FBruto(evaluacion.getEstresFBruto() != null ? evaluacion.getEstresFBruto()
+                                                : BigDecimal.ZERO)
                                 .build());
 
                 // Build probabilidades (mapped to test percentages)
@@ -236,24 +254,24 @@ public class EvaluacionServiceImpl implements EvaluacionService {
                                 .estres(evaluacion.getPorcentajeEstres())
                                 .build();
 
-                // Get recommendations - NEW LOGIC: Try manual first, then fallback to linked? 
+                // Get recommendations - NEW LOGIC: Try manual first, then fallback to linked?
                 // Currently user wants the manual table ones which are direct strings.
                 List<EvaluacionRecomendacionManual> manualRecs = evalRecomendacionManualRepository
                                 .findByEvaluacionIdOrderByFechaAsignacionAsc(evaluacionId);
-                                
+
                 List<String> recomendaciones;
                 if (!manualRecs.isEmpty()) {
-                     recomendaciones = manualRecs.stream()
-                        .map(EvaluacionRecomendacionManual::getRecomendacionTexto)
-                        .collect(Collectors.toList());
+                        recomendaciones = manualRecs.stream()
+                                        .map(EvaluacionRecomendacionManual::getRecomendacionTexto)
+                                        .collect(Collectors.toList());
                 } else {
-                    // Fallback to old logic just in case? Or pure separation?
-                    // Let's keep fallback for old evaluations if any
-                    List<EvaluacionRecomendacion> evalRecomendaciones = evalRecomendacionRepository
-                                    .findByEvaluacionIdOrderByOrdenPresentacionAsc(evaluacionId);
-                    recomendaciones = evalRecomendaciones.stream()
-                                    .map(er -> er.getRecomendacion().getDescripcion())
-                                    .collect(Collectors.toList());
+                        // Fallback to old logic just in case? Or pure separation?
+                        // Let's keep fallback for old evaluations if any
+                        List<EvaluacionRecomendacion> evalRecomendaciones = evalRecomendacionRepository
+                                        .findByEvaluacionIdOrderByOrdenPresentacionAsc(evaluacionId);
+                        recomendaciones = evalRecomendaciones.stream()
+                                        .map(er -> er.getRecomendacion().getDescripcion())
+                                        .collect(Collectors.toList());
                 }
 
                 return ResultadosEvaluacionDTO.builder()
