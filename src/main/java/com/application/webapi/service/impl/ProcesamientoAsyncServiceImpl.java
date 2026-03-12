@@ -268,11 +268,13 @@ public class ProcesamientoAsyncServiceImpl implements ProcesamientoAsyncService 
     }
 
     private String formatCodigoPrueba(String cuestionario) {
-        if ("GAD7".equals(cuestionario))
+        if (cuestionario == null) return "";
+        String upper = cuestionario.toUpperCase().replace("-", "");
+        if ("GAD7".equals(upper))
             return "GAD-7";
-        if ("PHQ9".equals(cuestionario))
+        if ("PHQ9".equals(upper))
             return "PHQ-9";
-        if ("PSS10".equals(cuestionario))
+        if ("PSS10".equals(upper))
             return "PSS-10";
         return cuestionario;
     }
