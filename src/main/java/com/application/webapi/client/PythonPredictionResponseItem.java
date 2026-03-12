@@ -1,5 +1,6 @@
 package com.application.webapi.client;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,11 +39,14 @@ public class PythonPredictionResponseItem {
         private double i;
         @JsonProperty("f")
         private double f;
-        @JsonProperty("t_bruto")
+        @JsonProperty("tBruto")
+        @JsonAlias("t_bruto")
         private double tBruto;
-        @JsonProperty("i_bruto")
+        @JsonProperty("iBruto")
+        @JsonAlias("i_bruto")
         private double iBruto;
-        @JsonProperty("f_bruto")
+        @JsonProperty("fBruto")
+        @JsonAlias("f_bruto")
         private double fBruto;
     }
 }
