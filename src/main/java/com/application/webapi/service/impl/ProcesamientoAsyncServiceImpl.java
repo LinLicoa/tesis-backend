@@ -95,6 +95,20 @@ public class ProcesamientoAsyncServiceImpl implements ProcesamientoAsyncService 
 
             PythonPredictionResponseItem pythonResponse = responseArray[0];
 
+            // Debug: Log detallado de la respuesta Python
+            log.info("Python response - idcuestionario: {}, detalles count: {}, recomendaciones count: {}",
+                    pythonResponse.getIdCuestionario(),
+                    pythonResponse.getDetalles() != null ? pythonResponse.getDetalles().size() : "null",
+                    pythonResponse.getRecomendaciones() != null ? pythonResponse.getRecomendaciones().size() : "null");
+            if (pythonResponse.getDetalles() != null) {
+                for (PythonPredictionResponseItem.DetalleDTO d : pythonResponse.getDetalles()) {
+                    log.info("  Detalle prueba={}, condicion={}, pct={}, t={}, i={}, f={}, t_bruto={}, i_bruto={}, f_bruto={}",
+                            d.getPrueba(), d.getCondicion(), d.getPorcentaje(),
+                            d.getT(), d.getI(), d.getF(),
+                            d.getTBruto(), d.getIBruto(), d.getFBruto());
+                }
+            }
+
             // PASO 6: Guardar resultados de Python
             if (pythonResponse.getDetalles() != null) {
                 log.info("Respuesta Python recibida. Detalles: {}", pythonResponse.getDetalles().size());

@@ -1,5 +1,6 @@
 package com.application.webapi.client;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -13,6 +14,7 @@ public class PythonServiceClient {
 
     private final RestTemplate restTemplate;
     private final String pythonServiceUrl;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public PythonServiceClient(
             RestTemplate restTemplate,
@@ -24,6 +26,14 @@ public class PythonServiceClient {
     public <T, R> R post(String endpoint, T request, Class<R> responseType) {
         String url = pythonServiceUrl + endpoint;
         log.info("Calling Python service: POST {}", url);
+
+        // Log the request body for debugging
+        try {
+            String requestJson = objectMapper.writeValueAsString(request);
+            log.info(">>> Python request body: {}", requestJson);
+        } catch (Exception e) {
+            log.warn("Could not serialize request for logging: {}", e.getMessage());
+        }
 
         try {
             HttpHeaders headers = new HttpHeaders();
@@ -39,6 +49,13 @@ public class PythonServiceClient {
 
             if (response.getStatusCode().is2xxSuccessful()) {
                 log.info("Python service responded successfully");
+                // Log the response body for debugging
+                try {
+                    String responseJson = objectMapper.writeValueAsString(response.getBody());
+                    log.info("<<< Python response body: {}", responseJson);
+                } catch (Exception e) {
+                    log.warn("Could not serialize response for logging: {}", e.getMessage());
+                }
                 return response.getBody();
             } else {
                 log.error("Python service returned error: {}", response.getStatusCode());
